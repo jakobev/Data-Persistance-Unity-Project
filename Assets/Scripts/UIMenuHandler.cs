@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class UIMenuHandler : MonoBehaviour
 {
@@ -23,5 +26,14 @@ public class UIMenuHandler : MonoBehaviour
         // load the main scene
         MenuManager.Instance.username = usernameField.text;
         SceneManager.LoadScene(1);
+    }
+
+    public void Exit()
+    {
+#if UNITY_EDITOR // exit playmode when in editor
+        EditorApplication.ExitPlaymode();
+#else // else close application (build)
+        Application.Quit();
+#endif
     }
 }
